@@ -5,6 +5,9 @@ import Header from "../components/component/Header/Header"
 import Hobbies from "../components/component/Hobbies/Hobbies"
 import Skills from "../components/component/Skills/Skills"
 import emailjs from '@emailjs/browser';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function HomePage() {
 
     const form = useRef();
@@ -18,10 +21,12 @@ function HomePage() {
             })
             .then(
                 () => {
-                    console.log('SUCCESS!');
+                    toast.success("Email sent successfully!");
+                    form.current.reset(); // ✅ Reset form
                 },
                 (error) => {
-                    console.log('FAILED...', error.text);
+                    console.error("FAILED...", error.text);
+                    toast.error("Failed to send email. Please try again.");
                 },
             );
     };
@@ -73,6 +78,8 @@ function HomePage() {
 
 
             <Footer />
+                  <ToastContainer position="top-center" autoClose={3000} />
+
         </>
     )
 }
